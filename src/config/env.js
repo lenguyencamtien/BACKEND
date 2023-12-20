@@ -8,6 +8,8 @@ const env = {
   USER_READ: process.env.USER_READ,
   USER_REGISTER: process.env.USER_REGISTER,
   USER_LOGIN: process.env.USER_LOGIN,
+  JWT_SECRET: process.env.JWT_SECRET,
+  UPDATE_ROLE: process.env.UPDATE_ROLE,
 
   // API Khách sạn
   API_HOTELS: process.env.API_HOTELS,

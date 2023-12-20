@@ -27,7 +27,47 @@ class UserController {
     res.status(201).json({ user });
   }
 
-  async loginUser(req, res) {}
+  async loginUser(req, res) {
+    const { email, password } = req.body;
+
+    // Tìm kiếm một đối tượng User với email trùng với email đăng nhập
+    const user = await Users.findOne({ email });
+
+    // Kiểm tra xem user tồn tại hay không
+    if (!user) {
+      return res
+        .status(401)
+        .json({ message: "Email hoặc mật khẩu không đúng" });
+    }
+
+    // So sánh password được nhập vào với password lưu trữ trong cơ sở dữ liệu
+    if (password !== user.password) {
+      return res
+        .status(401)
+        .json({ message: "Email hoặc mật khẩu không đúng" });
+    }
+
+    // Nếu email và password hợp lệ, tạo một mã thông báo JSON và gửi về cho client-side
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    res.json({ user, token });
+  }
+
+  async updateRole(req, res) {
+    try {
+      const { role } = req.body;
+      const user = await Users.findById(req.params._id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      user.role = role;
+      const updatedRole = await user.save();
+      res.json({ user: updatedRole });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+
 }
 
 module.exports = new UserController();
