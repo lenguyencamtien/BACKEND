@@ -6,8 +6,8 @@ const env = {
   // API người dùng
   API_USERS: process.env.API_USERS,
   USER_READ: process.env.USER_READ,
-  USER_CREATE: process.env.USER_CREATE,
-  USER_UPDATE: process.env.USER_UPDATE,
+  USER_REGISTER: process.env.USER_REGISTER,
+  USER_LOGIN: process.env.USER_LOGIN,
 
   // API Khách sạn
   API_HOTELS: process.env.API_HOTELS,

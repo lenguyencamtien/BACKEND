@@ -5,6 +5,8 @@ const cors = require("cors");
 const app = express();
 const env = require("./src/config/env");
 
+app.use(express.json());
+
 db.connect();
 
 app.use(cors());
